@@ -96,7 +96,9 @@ export const Parametres = () => {
     toast.success('Paramètres de notifications sauvegardés');
   };
 
-  const tabs = [
+  type TabId = 'general' | 'facturation' | 'notifications' | 'securite';
+  
+  const tabs: Array<{ id: TabId; label: string; icon: typeof Building2 }> = [
     { id: 'general', label: 'Général', icon: Building2 },
     { id: 'facturation', label: 'Facturation', icon: DollarSign },
     { id: 'notifications', label: 'Notifications', icon: Bell },
