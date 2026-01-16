@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -35,6 +35,23 @@ export const DashboardLayout = () => {
   const location = useLocation();
   const { deconnecter } = useApp();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    if (window.innerWidth >= 1024) {
+      setSidebarOpen(true);
+    }
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLogout = () => {
     deconnecter();
@@ -66,9 +83,9 @@ export const DashboardLayout = () => {
       <motion.aside
         initial={false}
         animate={{
-          x: sidebarOpen ? 0 : '-100%',
+          x: isDesktop ? 0 : (sidebarOpen ? 0 : '-100%'),
         }}
-        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-slate-200 shadow-lg z-50 lg:z-30 lg:translate-x-0"
+        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-slate-200 shadow-lg z-50 lg:z-30"
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
