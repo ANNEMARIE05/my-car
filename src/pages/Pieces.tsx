@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import {
@@ -49,20 +49,22 @@ export const Pieces = () => {
     });
   }, [pieces, searchTerm]);
 
-  const piecesPaginees = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return piecesFiltrees.slice(startIndex, endIndex);
-  }, [piecesFiltrees, currentPage, itemsPerPage]);
-
   const totalPages = Math.ceil(piecesFiltrees.length / itemsPerPage);
 
-  // Réinitialiser la page si elle est hors limites ou si la recherche change
-  useEffect(() => {
+  // S'assurer que la page actuelle est valide
+  const validCurrentPage = useMemo(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
+      return 1;
     }
-  }, [totalPages, currentPage, searchTerm]);
+    return currentPage;
+  }, [currentPage, totalPages]);
+
+  const piecesPaginees = useMemo(() => {
+    const pageToUse = validCurrentPage;
+    const startIndex = (pageToUse - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return piecesFiltrees.slice(startIndex, endIndex);
+  }, [piecesFiltrees, validCurrentPage, itemsPerPage]);
 
   const piecesAlerte = pieces.filter((p) => p.qtyStock <= p.seuilAlerte);
 
@@ -302,7 +304,7 @@ export const Pieces = () => {
       {/* Pagination */}
       {piecesFiltrees.length > 0 && totalPages > 1 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={validCurrentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           itemsPerPage={itemsPerPage}

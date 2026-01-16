@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import {
@@ -41,19 +41,22 @@ export const Allocations = () => {
     return allocations;
   }, [allocations]);
 
-  const allocationsPaginees = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return allocationsFiltrees.slice(startIndex, endIndex);
-  }, [allocationsFiltrees, currentPage, itemsPerPage]);
-
   const totalPages = Math.ceil(allocationsFiltrees.length / itemsPerPage);
 
-  useEffect(() => {
+  // S'assurer que la page actuelle est valide
+  const validCurrentPage = useMemo(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
+      return 1;
     }
-  }, [totalPages, currentPage]);
+    return currentPage;
+  }, [currentPage, totalPages]);
+
+  const allocationsPaginees = useMemo(() => {
+    const pageToUse = validCurrentPage;
+    const startIndex = (pageToUse - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return allocationsFiltrees.slice(startIndex, endIndex);
+  }, [allocationsFiltrees, validCurrentPage, itemsPerPage]);
 
   const getStatutBadge = (statut: StatutLocation) => {
     const configs = {
@@ -140,13 +143,14 @@ export const Allocations = () => {
     setShowModal(false);
   };
 
-  const handleRetourSubmit = (e: React.FormEvent) => {
+  const handleRetourSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!allocationSelectionnee) return;
 
-    const kmRetour = parseInt((e.target as any).kmRetour.value);
-    const fraisSupplementaires = parseFloat((e.target as any).fraisSupplementaires.value) || 0;
-    const motifFrais = (e.target as any).motifFrais.value || '';
+    const form = e.currentTarget;
+    const kmRetour = parseInt((form.elements.namedItem('kmRetour') as HTMLInputElement).value);
+    const fraisSupplementaires = parseFloat((form.elements.namedItem('fraisSupplementaires') as HTMLInputElement).value) || 0;
+    const motifFrais = (form.elements.namedItem('motifFrais') as HTMLInputElement).value || '';
 
     const allocationsUpdate = allocations.map((a) =>
       a.id === allocationSelectionnee.id
@@ -282,7 +286,7 @@ export const Allocations = () => {
       {/* Pagination */}
       {allocationsFiltrees.length > 0 && totalPages > 1 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={validCurrentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           itemsPerPage={itemsPerPage}

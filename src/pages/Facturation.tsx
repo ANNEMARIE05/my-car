@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import {
@@ -20,19 +20,22 @@ export const Facturation = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const facturesPaginees = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return factures.slice(startIndex, endIndex);
-  }, [factures, currentPage, itemsPerPage]);
-
   const totalPages = Math.ceil(factures.length / itemsPerPage);
 
-  useEffect(() => {
+  // S'assurer que la page actuelle est valide
+  const validCurrentPage = useMemo(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
+      return 1;
     }
-  }, [totalPages, currentPage]);
+    return currentPage;
+  }, [currentPage, totalPages]);
+
+  const facturesPaginees = useMemo(() => {
+    const pageToUse = validCurrentPage;
+    const startIndex = (pageToUse - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return factures.slice(startIndex, endIndex);
+  }, [factures, validCurrentPage, itemsPerPage]);
 
   const getStatutBadge = (statut: StatutFacture) => {
     const configs = {
@@ -50,7 +53,7 @@ export const Facturation = () => {
     );
   };
 
-  const genererFacture = (allocationId: string) => {
+  const genererFacture = useCallback((allocationId: string) => {
     const allocation = allocations.find((a) => a.id === allocationId);
     if (!allocation) {
       toast.error('Allocation non trouvée');
@@ -64,13 +67,14 @@ export const Facturation = () => {
       return;
     }
 
-    const numeroFacture = `FAC-${Date.now().toString().slice(-8)}`;
+    const now = Date.now();
+    const numeroFacture = `FAC-${now.toString().slice(-8)}`;
     const totalHT = allocation.tarifTotal;
     const tva = totalHT * 0.2;
     const totalTTC = totalHT + tva;
 
     const nouvelleFacture: Facture = {
-      id: Date.now().toString(),
+      id: now.toString(),
       numero: numeroFacture,
       allocationId: allocation.id,
       clientId: client.id,
@@ -81,9 +85,9 @@ export const Facturation = () => {
       statut: 'impaye',
     };
 
-    setFactures([...factures, nouvelleFacture]);
+    setFactures((prevFactures) => [...prevFactures, nouvelleFacture]);
     toast.success('Facture générée avec succès');
-  };
+  }, [allocations, clients, vehicules, setFactures]);
 
   const genererPDF = (facture: Facture) => {
     const allocation = allocations.find((a) => a.id === facture.allocationId);
@@ -294,7 +298,7 @@ export const Facturation = () => {
       {/* Pagination */}
       {factures.length > 0 && totalPages > 1 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={validCurrentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           itemsPerPage={itemsPerPage}

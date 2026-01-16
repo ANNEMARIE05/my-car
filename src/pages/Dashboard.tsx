@@ -23,8 +23,53 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { useMemo } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444'];
+
+interface StatCardProps {
+  title: string;
+  value: string | number;
+  icon: LucideIcon;
+  trend?: string;
+  color: string;
+}
+
+const StatCard = ({
+  title,
+  value,
+  icon: Icon,
+  trend,
+  color,
+}: StatCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ scale: 1.02, y: -4 }}
+    className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6 border-l-4"
+    style={{ borderLeftColor: color }}
+  >
+    <div className="flex items-center justify-between">
+      <div className="flex-1">
+        <p className="text-xs sm:text-sm text-slate-600 mb-1">{title}</p>
+        <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">{value}</p>
+        {trend && (
+          <div className="flex items-center gap-1 mt-1 sm:mt-2 text-xs sm:text-sm text-green-600">
+            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">{trend}</span>
+          </div>
+        )}
+      </div>
+      <div
+        className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: `${color}15` }}
+      >
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" style={{ color }} />
+      </div>
+    </div>
+  </motion.div>
+);
 
 export const Dashboard = () => {
   const { vehicules, factures } = useApp();
@@ -89,48 +134,6 @@ export const Dashboard = () => {
           name === 'electrique' ? 'Électrique' : 'Hybride',
     value,
   }));
-
-  const StatCard = ({
-    title,
-    value,
-    icon: Icon,
-    trend,
-    color,
-  }: {
-    title: string;
-    value: string | number;
-    icon: any;
-    trend?: string;
-    color: string;
-  }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.02, y: -4 }}
-      className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6 border-l-4"
-      style={{ borderLeftColor: color }}
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex-1">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">{title}</p>
-          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">{value}</p>
-          {trend && (
-            <div className="flex items-center gap-1 mt-1 sm:mt-2 text-xs sm:text-sm text-green-600">
-              <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">{trend}</span>
-            </div>
-          )}
-        </div>
-        <div
-          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ backgroundColor: `${color}15` }}
-        >
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" style={{ color }} />
-        </div>
-      </div>
-    </motion.div>
-  );
 
   return (
     <div className="space-y-3 sm:space-y-4 lg:space-y-6">

@@ -122,7 +122,7 @@ export const Parametres = () => {
                 key={tab.id}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 flex items-center gap-2 border-b-2 transition-colors ${
                   isActive
                     ? 'border-blue-600 text-blue-600 font-semibold'

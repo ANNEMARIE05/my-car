@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import {
@@ -57,19 +57,22 @@ export const Vehicules = () => {
     });
   }, [vehicules, searchTerm, filtreStatut, filtreCarburant]);
 
-  const vehiculesPaginees = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return vehiculesFiltres.slice(startIndex, endIndex);
-  }, [vehiculesFiltres, currentPage, itemsPerPage]);
-
   const totalPages = Math.ceil(vehiculesFiltres.length / itemsPerPage);
 
-  useEffect(() => {
+  // S'assurer que la page actuelle est valide
+  const validCurrentPage = useMemo(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
+      return 1;
     }
-  }, [totalPages, currentPage, searchTerm, filtreStatut, filtreCarburant]);
+    return currentPage;
+  }, [currentPage, totalPages]);
+
+  const vehiculesPaginees = useMemo(() => {
+    const pageToUse = validCurrentPage;
+    const startIndex = (pageToUse - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return vehiculesFiltres.slice(startIndex, endIndex);
+  }, [vehiculesFiltres, validCurrentPage, itemsPerPage]);
 
   const getStatutBadge = (statut: StatutVehicule) => {
     const configs = {
@@ -373,7 +376,7 @@ export const Vehicules = () => {
       {/* Pagination */}
       {vehiculesFiltres.length > 0 && totalPages > 1 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={validCurrentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           itemsPerPage={itemsPerPage}

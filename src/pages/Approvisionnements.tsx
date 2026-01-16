@@ -14,7 +14,7 @@ import {
   XCircle,
 } from 'lucide-react';
 import { format } from 'date-fns';
-import type { Approvisionnement, LigneApprovisionnement, Piece } from '../types';
+import type { Approvisionnement, LigneApprovisionnement, Piece, StatutApprovisionnement } from '../types';
 import toast from 'react-hot-toast';
 
 export const Approvisionnements = () => {
@@ -519,7 +519,7 @@ export const Approvisionnements = () => {
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          statut: e.target.value as any,
+                          statut: e.target.value as StatutApprovisionnement,
                         })
                       }
                       className="input-field"

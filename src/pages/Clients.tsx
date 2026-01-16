@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
 import {
@@ -51,19 +51,22 @@ export const Clients = () => {
     });
   }, [clients, searchTerm]);
 
-  const clientsPagines = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return clientsFiltres.slice(startIndex, endIndex);
-  }, [clientsFiltres, currentPage, itemsPerPage]);
-
   const totalPages = Math.ceil(clientsFiltres.length / itemsPerPage);
 
-  useEffect(() => {
+  // S'assurer que la page actuelle est valide
+  const validCurrentPage = useMemo(() => {
     if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
+      return 1;
     }
-  }, [totalPages, currentPage, searchTerm]);
+    return currentPage;
+  }, [currentPage, totalPages]);
+
+  const clientsPagines = useMemo(() => {
+    const pageToUse = validCurrentPage;
+    const startIndex = (pageToUse - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return clientsFiltres.slice(startIndex, endIndex);
+  }, [clientsFiltres, validCurrentPage, itemsPerPage]);
 
   const handleAjouter = () => {
     setClientSelectionne(null);
@@ -383,7 +386,7 @@ export const Clients = () => {
       {/* Pagination */}
       {clientsFiltres.length > 0 && totalPages > 1 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={validCurrentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
           itemsPerPage={itemsPerPage}

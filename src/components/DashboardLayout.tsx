@@ -34,22 +34,19 @@ export const DashboardLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { deconnecter } = useApp();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+  const [sidebarOpen, setSidebarOpen] = useState(() => window.innerWidth >= 1024);
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 1024);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-      if (window.innerWidth >= 1024) {
+      const isDesktopWidth = window.innerWidth >= 1024;
+      setIsDesktop(isDesktopWidth);
+      if (isDesktopWidth) {
         setSidebarOpen(true);
       }
     };
 
     window.addEventListener('resize', handleResize);
-    if (window.innerWidth >= 1024) {
-      setSidebarOpen(true);
-    }
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
