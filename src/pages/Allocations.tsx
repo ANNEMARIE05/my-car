@@ -177,26 +177,26 @@ export const Allocations = () => {
   const vehicule = vehicules.find((v) => v.id === formData.vehiculeId);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Allocations & Locations</h1>
-          <p className="text-slate-600">Gérez les locations de véhicules</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Allocations & Locations</h1>
+          <p className="text-sm sm:text-base text-slate-600">Gérez les locations de véhicules</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAjouter}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          <span>Nouvelle allocation</span>
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="whitespace-nowrap">Nouvelle allocation</span>
         </motion.button>
       </div>
 
       {/* Liste des allocations */}
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:gap-4">
         <AnimatePresence>
           {allocationsPaginees.map((allocation) => {
             const clientAlloc = clients.find((c) => c.id === allocation.clientId);
@@ -209,17 +209,17 @@ export const Allocations = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="card bg-white rounded-xl shadow-md p-6"
+                className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-lg font-bold text-slate-900">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                  <div className="flex-1 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900">
                         Allocation #{allocation.id.slice(-6)}
                       </h3>
                       {getStatutBadge(allocation.statut)}
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
                       <div className="flex items-center gap-2 text-slate-600">
                         <User className="w-4 h-4" />
                         <span>
@@ -260,7 +260,7 @@ export const Allocations = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleRetour(allocation)}
-                      className="btn-primary"
+                      className="btn-primary text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
                     >
                       Enregistrer le retour
                     </motion.button>
@@ -273,9 +273,9 @@ export const Allocations = () => {
       </div>
 
       {allocationsFiltrees.length === 0 && (
-        <div className="text-center py-12">
-          <ClipboardList className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <p className="text-slate-600 text-lg">Aucune allocation trouvée</p>
+        <div className="text-center py-8 sm:py-12">
+          <ClipboardList className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-base sm:text-lg">Aucune allocation trouvée</p>
         </div>
       )}
 
@@ -305,11 +305,11 @@ export const Allocations = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">Nouvelle allocation</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">Nouvelle allocation</h2>
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 lg:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Client</label>
                     <select
@@ -348,7 +348,7 @@ export const Allocations = () => {
                     </select>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">
                       Date de début
@@ -503,7 +503,7 @@ export const Allocations = () => {
               onClick={(e) => e.stopPropagation()}
               className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">Retour de véhicule</h2>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">Retour de véhicule</h2>
               <form onSubmit={handleRetourSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">

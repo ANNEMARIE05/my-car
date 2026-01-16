@@ -151,21 +151,21 @@ export const Pieces = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Pièces & Stock</h1>
-          <p className="text-slate-600">Gérez votre inventaire de pièces détachées</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Pièces & Stock</h1>
+          <p className="text-sm sm:text-base text-slate-600">Gérez votre inventaire de pièces détachées</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAjouter}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          <span>Ajouter une pièce</span>
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="whitespace-nowrap">Ajouter une pièce</span>
         </motion.button>
       </div>
 
@@ -203,7 +203,7 @@ export const Pieces = () => {
       </div>
 
       {/* Liste des pièces */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-6">
         <AnimatePresence>
           {piecesPaginees.map((piece) => (
             <motion.div
@@ -215,7 +215,7 @@ export const Pieces = () => {
               whileHover={{ y: -4 }}
               className="card bg-white rounded-xl shadow-md overflow-hidden"
             >
-              <div className="relative h-48 bg-gradient-to-br from-slate-400 to-slate-600 overflow-hidden">
+              <div className="relative h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-slate-400 to-slate-600 overflow-hidden">
                 {piece.photo ? (
                   <img
                     src={piece.photo}
@@ -224,20 +224,20 @@ export const Pieces = () => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Package className="w-16 h-16 text-white/50" />
+                    <Package className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-white/50" />
                   </div>
                 )}
                 {piece.qtyStock <= piece.seuilAlerte && (
-                  <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3" />
-                    Stock bas
+                    <span className="hidden sm:inline">Stock bas</span>
                   </div>
                 )}
               </div>
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-slate-900 mb-1">{piece.nom}</h3>
-                <p className="text-sm text-slate-600 mb-3">{piece.categorie}</p>
-                <div className="space-y-2 text-sm mb-4">
+              <div className="p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">{piece.nom}</h3>
+                <p className="text-xs sm:text-sm text-slate-600 mb-2 sm:mb-3">{piece.categorie}</p>
+                <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm mb-3 sm:mb-4">
                   <div className="flex justify-between">
                     <span className="text-slate-600">Référence:</span>
                     <span className="font-medium">{piece.reference}</span>
@@ -325,9 +325,9 @@ export const Pieces = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">
                 {pieceSelectionnee ? 'Modifier la pièce' : 'Ajouter une pièce'}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -493,9 +493,9 @@ export const Pieces = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-md w-full text-center"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">QR Code</h2>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">QR Code</h2>
               <p className="text-slate-600 mb-6">{pieceSelectionnee.nom}</p>
               <div className="flex justify-center mb-6">
                 <div className="p-4 bg-white rounded-lg border-2 border-slate-200">

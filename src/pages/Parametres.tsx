@@ -10,7 +10,6 @@ import {
   Database,
   Mail,
   Phone,
-  MapPin,
   Save,
   BellRing,
   CreditCard,
@@ -105,11 +104,11 @@ export const Parametres = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Paramètres</h1>
-        <p className="text-slate-600">Configurez votre application</p>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Paramètres</h1>
+        <p className="text-sm sm:text-base text-slate-600">Configurez votre application</p>
       </div>
 
       {/* Tabs */}
@@ -143,17 +142,17 @@ export const Parametres = () => {
         key={activeTab}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="card bg-white rounded-xl shadow-md p-8"
+        className="card bg-white rounded-xl shadow-md p-4 sm:p-6 lg:p-8"
       >
         {/* Onglet Général */}
         {activeTab === 'general' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
                 <Building2 className="w-6 h-6" />
                 Informations de l'entreprise
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-slate-700 mb-2">
                     Nom de l'entreprise
@@ -331,13 +330,13 @@ export const Parametres = () => {
 
         {/* Onglet Facturation */}
         {activeTab === 'facturation' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
                 <DollarSign className="w-6 h-6" />
                 Paramètres de facturation
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
                     Taux de TVA (%)
@@ -438,9 +437,9 @@ export const Parametres = () => {
 
         {/* Onglet Notifications */}
         {activeTab === 'notifications' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
                 <BellRing className="w-6 h-6" />
                 Paramètres de notifications
               </h2>
@@ -592,14 +591,14 @@ export const Parametres = () => {
 
         {/* Onglet Sécurité */}
         {activeTab === 'securite' && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-4 sm:mb-6 flex items-center gap-2">
                 <Shield className="w-6 h-6" />
                 Sécurité et confidentialité
               </h2>
-              <div className="space-y-6">
-                <div className="p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="space-y-4 sm:space-y-5 lg:space-y-6">
+                <div className="p-3 sm:p-4 lg:p-6 bg-blue-50 rounded-lg border border-blue-200">
                   <h3 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
                     <User className="w-5 h-5" />
                     Gestion des utilisateurs
@@ -616,7 +615,7 @@ export const Parametres = () => {
                   </motion.button>
                 </div>
 
-                <div className="p-6 bg-slate-50 rounded-lg border border-slate-200">
+                <div className="p-3 sm:p-4 lg:p-6 bg-slate-50 rounded-lg border border-slate-200">
                   <h3 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
                     <Database className="w-5 h-5" />
                     Sauvegarde des données
@@ -643,7 +642,7 @@ export const Parametres = () => {
                   </div>
                 </div>
 
-                <div className="p-6 bg-red-50 rounded-lg border border-red-200">
+                <div className="p-3 sm:p-4 lg:p-6 bg-red-50 rounded-lg border border-red-200">
                   <h3 className="font-semibold text-red-900 mb-2">Zone de danger</h3>
                   <p className="text-sm text-red-800 mb-4">
                     Actions irréversibles. Veuillez être certain avant de continuer.

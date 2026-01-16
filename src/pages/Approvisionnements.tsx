@@ -12,7 +12,6 @@ import {
   CheckCircle2,
   Clock,
   XCircle,
-  FileText,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import type { Approvisionnement, LigneApprovisionnement, Piece } from '../types';
@@ -209,11 +208,11 @@ export const Approvisionnements = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">
             Approvisionnements
           </h1>
           <p className="text-slate-600">Gérez vos commandes de pièces détachées</p>
@@ -222,31 +221,31 @@ export const Approvisionnements = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAjouter}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          <span>Nouvelle commande</span>
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="whitespace-nowrap">Nouvelle commande</span>
         </motion.button>
       </div>
 
       {/* Statistiques rapides */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-500"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-blue-500"
         >
-          <p className="text-sm text-slate-600 mb-1">Total commandes</p>
-          <p className="text-2xl font-bold text-slate-900">{approvisionnements.length}</p>
+          <p className="text-xs sm:text-sm text-slate-600 mb-1">Total commandes</p>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">{approvisionnements.length}</p>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="card bg-white rounded-xl shadow-md p-4 border-l-4 border-yellow-500"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-yellow-500"
         >
-          <p className="text-sm text-slate-600 mb-1">En attente</p>
-          <p className="text-2xl font-bold text-slate-900">
+          <p className="text-xs sm:text-sm text-slate-600 mb-1">En attente</p>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">
             {approvisionnements.filter((a) => a.statut === 'en_attente').length}
           </p>
         </motion.div>
@@ -254,10 +253,10 @@ export const Approvisionnements = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="card bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-500"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-blue-500"
         >
-          <p className="text-sm text-slate-600 mb-1">En cours</p>
-          <p className="text-2xl font-bold text-slate-900">
+          <p className="text-xs sm:text-sm text-slate-600 mb-1">En cours</p>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">
             {approvisionnements.filter((a) => a.statut === 'en_cours').length}
           </p>
         </motion.div>
@@ -265,10 +264,10 @@ export const Approvisionnements = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="card bg-white rounded-xl shadow-md p-4 border-l-4 border-green-500"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 border-l-4 border-green-500"
         >
-          <p className="text-sm text-slate-600 mb-1">Livrés</p>
-          <p className="text-2xl font-bold text-slate-900">
+          <p className="text-xs sm:text-sm text-slate-600 mb-1">Livrés</p>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">
             {approvisionnements.filter((a) => a.statut === 'livre').length}
           </p>
         </motion.div>
@@ -300,9 +299,9 @@ export const Approvisionnements = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 whileHover={{ y: -2 }}
-                className="card bg-white rounded-xl shadow-md p-6"
+                className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-3 sm:mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -447,14 +446,14 @@ export const Approvisionnements = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">
                 {approvisionnementSelectionne
                   ? 'Modifier l\'approvisionnement'
                   : 'Nouvelle commande'}
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 lg:space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -553,7 +552,6 @@ export const Approvisionnements = () => {
                   </div>
                   <div className="space-y-3">
                     {lignes.map((ligne, index) => {
-                      const piece = pieces.find((p) => p.id === ligne.pieceId);
                       return (
                         <div
                           key={index}

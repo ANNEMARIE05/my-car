@@ -146,7 +146,7 @@ export const Vehicules = () => {
       whileHover={{ y: -4 }}
       className="card bg-white rounded-xl shadow-md overflow-hidden group cursor-pointer"
     >
-      <div className="relative h-48 bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
+      <div className="relative h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-blue-400 to-blue-600 overflow-hidden">
         {vehicule.photo ? (
           <img
             src={vehicule.photo}
@@ -155,28 +155,28 @@ export const Vehicules = () => {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Car className="w-16 h-16 text-white/50" />
+            <Car className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-white/50" />
           </div>
         )}
-        <div className="absolute top-3 right-3">{getStatutBadge(vehicule.statut)}</div>
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3">{getStatutBadge(vehicule.statut)}</div>
       </div>
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-slate-900 mb-1">
+      <div className="p-3 sm:p-4">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">
           {vehicule.marque} {vehicule.modele}
         </h3>
-        <p className="text-sm text-slate-600 mb-3">{vehicule.annee}</p>
-        <div className="flex items-center justify-between text-sm text-slate-500 mb-4">
+        <p className="text-xs sm:text-sm text-slate-600 mb-2 sm:mb-3">{vehicule.annee}</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">
           <div className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>{vehicule.immatriculation}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Gauge className="w-4 h-4" />
+            <Gauge className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>{vehicule.kilometrage.toLocaleString('fr-FR')} km</span>
           </div>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-blue-600">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+          <span className="text-base sm:text-lg font-bold text-blue-600">
             {vehicule.prixLocation} FCFA/jour
           </span>
           <div className="flex gap-2">
@@ -184,17 +184,17 @@ export const Vehicules = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleModifier(vehicule)}
-              className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+              className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
             >
-              <Edit className="w-4 h-4" />
+              <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => handleSupprimer(vehicule.id)}
-              className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+              className="p-1.5 sm:p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
             </motion.button>
           </div>
         </div>
@@ -203,27 +203,27 @@ export const Vehicules = () => {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Véhicules</h1>
-          <p className="text-slate-600">Gérez votre flotte automobile</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Véhicules</h1>
+          <p className="text-sm sm:text-base text-slate-600">Gérez votre flotte automobile</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAjouter}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          <span>Ajouter un véhicule</span>
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="whitespace-nowrap">Ajouter un véhicule</span>
         </motion.button>
       </div>
 
       {/* Filtres et recherche */}
-      <div className="card bg-white rounded-xl shadow-md p-4">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="card bg-white rounded-xl shadow-md p-3 sm:p-4">
+        <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
@@ -234,11 +234,11 @@ export const Vehicules = () => {
               className="input-field pl-10"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <select
               value={filtreStatut}
               onChange={(e) => setFiltreStatut(e.target.value as StatutVehicule | 'tous')}
-              className="input-field w-40"
+              className="input-field w-full sm:w-40 text-sm sm:text-base"
             >
               <option value="tous">Tous les statuts</option>
               <option value="disponible">Disponible</option>
@@ -249,7 +249,7 @@ export const Vehicules = () => {
             <select
               value={filtreCarburant}
               onChange={(e) => setFiltreCarburant(e.target.value as TypeCarburant | 'tous')}
-              className="input-field w-40"
+              className="input-field w-full sm:w-40 text-sm sm:text-base"
             >
               <option value="tous">Tous les carburants</option>
               <option value="essence">Essence</option>
@@ -287,7 +287,7 @@ export const Vehicules = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-6"
           >
             {vehiculesPaginees.map((vehicule) => (
               <CarteVehicule key={vehicule.id} vehicule={vehicule} />
@@ -299,7 +299,7 @@ export const Vehicules = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-3 lg:space-y-4"
           >
             {vehiculesPaginees.map((vehicule) => (
               <motion.div
@@ -308,9 +308,9 @@ export const Vehicules = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
-                className="card bg-white rounded-xl shadow-md p-4 flex items-center gap-4 hover:shadow-lg transition-shadow"
+                className="card bg-white rounded-xl shadow-md p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 hover:shadow-lg transition-shadow"
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   {vehicule.photo ? (
                     <img
                       src={vehicule.photo}
@@ -318,24 +318,24 @@ export const Vehicules = () => {
                       className="w-full h-full object-cover rounded-lg"
                     />
                   ) : (
-                    <Car className="w-8 h-8 text-white" />
+                    <Car className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   )}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-bold text-slate-900">
+                <div className="flex-1 min-w-0 w-full sm:w-auto">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900">
                       {vehicule.marque} {vehicule.modele} ({vehicule.annee})
                     </h3>
                     {getStatutBadge(vehicule.statut)}
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-slate-600">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs sm:text-sm text-slate-600">
                     <span>Immatriculation: {vehicule.immatriculation}</span>
                     <span>Kilométrage: {vehicule.kilometrage.toLocaleString('fr-FR')} km</span>
                     <span>Carburant: {vehicule.carburant}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-xl font-bold text-blue-600">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                  <span className="text-base sm:text-lg lg:text-xl font-bold text-blue-600">
                     {vehicule.prixLocation} FCFA/jour
                   </span>
                   <div className="flex gap-2">
@@ -343,17 +343,17 @@ export const Vehicules = () => {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleModifier(vehicule)}
-                      className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
+                      className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                     >
-                      <Edit className="w-4 h-4" />
+                      <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleSupprimer(vehicule.id)}
-                      className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
+                      className="p-1.5 sm:p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                     </motion.button>
                   </div>
                 </div>
@@ -364,9 +364,9 @@ export const Vehicules = () => {
       </AnimatePresence>
 
       {vehiculesFiltres.length === 0 && (
-        <div className="text-center py-12">
-          <Car className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <p className="text-slate-600 text-lg">Aucun véhicule trouvé</p>
+        <div className="text-center py-8 sm:py-12">
+          <Car className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-base sm:text-lg">Aucun véhicule trouvé</p>
         </div>
       )}
 
@@ -396,13 +396,13 @@ export const Vehicules = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">
                 {vehiculeSelectionne ? 'Modifier le véhicule' : 'Ajouter un véhicule'}
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Marque</label>
                     <input

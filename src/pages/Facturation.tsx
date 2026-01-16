@@ -171,15 +171,15 @@ export const Facturation = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Facturation</h1>
-        <p className="text-slate-600">Gérez vos factures et paiements</p>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Facturation</h1>
+        <p className="text-sm sm:text-base text-slate-600">Gérez vos factures et paiements</p>
       </div>
 
       {/* Liste des factures */}
-      <div className="space-y-4">
+      <div className="space-y-2 sm:space-y-3 lg:space-y-4">
         {facturesPaginees.map((facture) => {
           const client = clients.find((c) => c.id === facture.clientId);
 
@@ -188,15 +188,15 @@ export const Facturation = () => {
               key={facture.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="card bg-white rounded-xl shadow-md p-6"
+              className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-lg font-bold text-slate-900">{facture.numero}</h3>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                <div className="flex-1 w-full sm:w-auto">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900">{facture.numero}</h3>
                     {getStatutBadge(facture.statut)}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm">
                     <div>
                       <p className="text-slate-600">Client</p>
                       <p className="font-medium text-slate-900">
@@ -211,13 +211,13 @@ export const Facturation = () => {
                     </div>
                     <div>
                       <p className="text-slate-600">Montant TTC</p>
-                      <p className="text-xl font-bold text-blue-600">
+                      <p className="text-base sm:text-lg lg:text-xl font-bold text-blue-600">
                         {facture.totalTTC.toLocaleString('fr-FR')} FCFA
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -225,7 +225,7 @@ export const Facturation = () => {
                     className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                     title="Télécharger PDF"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -233,7 +233,7 @@ export const Facturation = () => {
                     className="p-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100"
                     title="Envoyer par email"
                   >
-                    <Mail className="w-5 h-5" />
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.button>
                 </div>
               </div>
@@ -243,10 +243,10 @@ export const Facturation = () => {
       </div>
 
       {factures.length === 0 && (
-        <div className="text-center py-12">
-          <FileText className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <p className="text-slate-600 text-lg mb-4">Aucune facture trouvée</p>
-          <p className="text-sm text-slate-500">
+        <div className="text-center py-8 sm:py-12">
+          <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-base sm:text-lg mb-3 sm:mb-4">Aucune facture trouvée</p>
+          <p className="text-xs sm:text-sm text-slate-500">
             Les factures sont générées automatiquement lors du retour d'un véhicule
           </p>
         </div>
@@ -255,7 +255,7 @@ export const Facturation = () => {
       {/* Générer factures depuis allocations terminées */}
       {allocations.filter((a) => a.statut === 'termine' && !factures.some((f) => f.allocationId === a.id))
         .length > 0 && (
-        <div className="card bg-blue-50 border-l-4 border-blue-500 p-4">
+        <div className="card bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4">
           <h3 className="font-semibold text-blue-900 mb-2">Allocations terminées sans facture</h3>
           <div className="space-y-2">
             {allocations

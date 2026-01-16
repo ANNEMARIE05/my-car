@@ -108,46 +108,46 @@ export const Dashboard = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02, y: -4 }}
-      className="card bg-white rounded-xl shadow-md p-6 border-l-4"
+      className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6 border-l-4"
       style={{ borderLeftColor: color }}
     >
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-sm text-slate-600 mb-1">{title}</p>
-          <p className="text-2xl font-bold text-slate-900">{value}</p>
+          <p className="text-xs sm:text-sm text-slate-600 mb-1">{title}</p>
+          <p className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900">{value}</p>
           {trend && (
-            <div className="flex items-center gap-1 mt-2 text-sm text-green-600">
-              <TrendingUp className="w-4 h-4" />
-              <span>{trend}</span>
+            <div className="flex items-center gap-1 mt-1 sm:mt-2 text-xs sm:text-sm text-green-600">
+              <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">{trend}</span>
             </div>
           )}
         </div>
         <div
-          className="w-12 h-12 rounded-lg flex items-center justify-center"
+          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg flex items-center justify-center flex-shrink-0"
           style={{ backgroundColor: `${color}15` }}
         >
-          <Icon className="w-6 h-6" style={{ color }} />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" style={{ color }} />
         </div>
       </div>
     </motion.div>
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-3 sm:mb-4 lg:mb-6"
       >
-        <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">
           Tableau de bord
         </h1>
-        <p className="text-slate-600">Vue d'ensemble de votre flotte automobile</p>
+        <p className="text-sm sm:text-base text-slate-600">Vue d'ensemble de votre flotte automobile</p>
       </motion.div>
 
       {/* Statistiques */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-6">
         <StatCard
           title="Total véhicules"
           value={statistiques.totalVehicules}
@@ -176,7 +176,7 @@ export const Dashboard = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-6">
         <StatCard
           title="Revenus mensuels"
           value={`${statistiques.revenusMensuels.toLocaleString('fr-FR')} FCFA`}
@@ -193,16 +193,16 @@ export const Dashboard = () => {
       </div>
 
       {/* Graphiques */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 mt-3 sm:mt-4 lg:mt-6">
         {/* Évolution revenus */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="card bg-white rounded-xl shadow-md p-6"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
         >
-          <h2 className="text-xl font-bold text-slate-900 mb-4">Évolution des revenus</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-2 sm:mb-3 lg:mb-4">Évolution des revenus</h2>
+          <ResponsiveContainer width="100%" height={250}>
             <AreaChart data={donneesRevenus}>
               <defs>
                 <linearGradient id="colorRevenus" x1="0" y1="0" x2="0" y2="1">
@@ -237,10 +237,10 @@ export const Dashboard = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="card bg-white rounded-xl shadow-md p-6"
+          className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
         >
-          <h2 className="text-xl font-bold text-slate-900 mb-4">Répartition par statut</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-2 sm:mb-3 lg:mb-4">Répartition par statut</h2>
+          <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
                 data={donneesStatut}
@@ -248,7 +248,7 @@ export const Dashboard = () => {
                 cy="50%"
                 labelLine={false}
                 label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
-                outerRadius={100}
+                outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -267,10 +267,10 @@ export const Dashboard = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="card bg-white rounded-xl shadow-md p-6"
+        className="card bg-white rounded-xl shadow-md p-3 sm:p-4 lg:p-6"
       >
-        <h2 className="text-xl font-bold text-slate-900 mb-4">Répartition par carburant</h2>
-        <ResponsiveContainer width="100%" height={300}>
+        <h2 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-2 sm:mb-3 lg:mb-4">Répartition par carburant</h2>
+        <ResponsiveContainer width="100%" height={250}>
           <BarChart data={donneesCarburant}>
             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
             <XAxis dataKey="name" stroke="#6B7280" />

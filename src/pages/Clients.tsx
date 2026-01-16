@@ -120,27 +120,27 @@ export const Clients = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-4 lg:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 font-display mb-2">Clients</h1>
-          <p className="text-slate-600">Gérez vos clients et conducteurs</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 font-display mb-1 sm:mb-2">Clients</h1>
+          <p className="text-sm sm:text-base text-slate-600">Gérez vos clients et conducteurs</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAjouter}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          <span>Ajouter un client</span>
+          <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="whitespace-nowrap">Ajouter un client</span>
         </motion.button>
       </div>
 
       {/* Recherche */}
-      <div className="card bg-white rounded-xl shadow-md p-4">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="card bg-white rounded-xl shadow-md p-3 sm:p-4">
+        <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
@@ -180,7 +180,7 @@ export const Clients = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-6"
           >
             {clientsPagines.map((client) => {
               const stats = getStatistiquesClient(client.id);
@@ -196,63 +196,63 @@ export const Clients = () => {
                   whileHover={{ y: -4 }}
                   className="card bg-white rounded-xl shadow-md overflow-hidden"
                 >
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  <div className="p-3 sm:p-4 lg:p-6">
+                    <div className="flex items-start justify-between mb-3 sm:mb-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg">
                         {client.prenom[0]}{client.nom[0]}
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1.5 sm:gap-2">
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => setShowDetails(isDetailsOpen ? null : client.id)}
-                          className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
+                          className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                         >
-                          <History className="w-4 h-4" />
+                          <History className="w-3 h-3 sm:w-4 sm:h-4" />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleModifier(client)}
-                          className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
+                          className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                         >
-                          <Edit className="w-4 h-4" />
+                          <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleSupprimer(client.id)}
-                          className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
+                          className="p-1.5 sm:p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                         </motion.button>
                       </div>
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-1">
                       {client.prenom} {client.nom}
                     </h3>
-                    <div className="space-y-2 text-sm text-slate-600 mb-4">
+                    <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4">
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        <span>{client.email}</span>
+                        <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span className="truncate">{client.email}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4" />
+                        <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                         <span>{client.telephone}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CreditCard className="w-4 h-4" />
-                        <span>Permis: {client.numeroPermis}</span>
+                        <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span className="truncate">Permis: {client.numeroPermis}</span>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200">
+                    <div className="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-4 border-t border-slate-200">
                       <div>
                         <p className="text-xs text-slate-500 mb-1">Locations</p>
-                        <p className="text-lg font-bold text-slate-900">{stats.nbLocations}</p>
+                        <p className="text-base sm:text-lg font-bold text-slate-900">{stats.nbLocations}</p>
                       </div>
                       <div>
                         <p className="text-xs text-slate-500 mb-1">Total dépensé</p>
-                        <p className="text-lg font-bold text-blue-600">
+                        <p className="text-sm sm:text-base lg:text-lg font-bold text-blue-600 truncate">
                           {stats.totalDepense.toLocaleString('fr-FR')} FCFA
                         </p>
                       </div>
@@ -299,7 +299,7 @@ export const Clients = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="space-y-4"
+            className="space-y-2 sm:space-y-3 lg:space-y-4"
           >
             {clientsPagines.map((client) => {
               const stats = getStatistiquesClient(client.id);
@@ -310,29 +310,29 @@ export const Clients = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
-                  className="card bg-white rounded-xl shadow-md p-4 flex items-center gap-4 hover:shadow-lg transition-shadow"
+                  className="card bg-white rounded-xl shadow-md p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 hover:shadow-lg transition-shadow"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg lg:text-xl flex-shrink-0">
                     {client.prenom[0]}{client.nom[0]}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-bold text-slate-900">
+                  <div className="flex-1 min-w-0 w-full sm:w-auto">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900">
                         {client.prenom} {client.nom}
                       </h3>
                     </div>
-                    <div className="flex items-center gap-4 text-sm text-slate-600">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 text-xs sm:text-sm text-slate-600">
                       <div className="flex items-center gap-1">
-                        <Mail className="w-4 h-4" />
-                        <span>{client.email}</span>
+                        <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span className="truncate">{client.email}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Phone className="w-4 h-4" />
+                        <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                         <span>{client.telephone}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <CreditCard className="w-4 h-4" />
-                        <span>Permis: {client.numeroPermis}</span>
+                        <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span className="truncate">Permis: {client.numeroPermis}</span>
                       </div>
                       <div>
                         <span className="text-slate-500">Locations: </span>
@@ -340,10 +340,10 @@ export const Clients = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <div className="text-right">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                    <div className="text-left sm:text-right">
                       <p className="text-xs text-slate-500 mb-1">Total dépensé</p>
-                      <p className="text-xl font-bold text-blue-600">
+                      <p className="text-base sm:text-lg lg:text-xl font-bold text-blue-600">
                         {stats.totalDepense.toLocaleString('fr-FR')} FCFA
                       </p>
                     </div>
@@ -352,17 +352,17 @@ export const Clients = () => {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => handleModifier(client)}
-                        className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
+                        className="p-1.5 sm:p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                         onClick={() => handleSupprimer(client.id)}
-                        className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
+                        className="p-1.5 sm:p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                       </motion.button>
                     </div>
                   </div>
@@ -374,9 +374,9 @@ export const Clients = () => {
       </AnimatePresence>
 
       {clientsFiltres.length === 0 && (
-        <div className="text-center py-12">
-          <Users className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <p className="text-slate-600 text-lg">Aucun client trouvé</p>
+        <div className="text-center py-8 sm:py-12">
+          <Users className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-base sm:text-lg">Aucun client trouvé</p>
         </div>
       )}
 
@@ -406,13 +406,13 @@ export const Clients = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-4 sm:mb-6">
                 {clientSelectionne ? 'Modifier le client' : 'Ajouter un client'}
               </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2">Prénom</label>
                     <input
