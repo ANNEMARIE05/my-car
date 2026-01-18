@@ -56,13 +56,13 @@ export const DashboardLayout = () => {
     navigate('/login');
   };
 
-  const handleNavigate = (path: string) => {
+  const handleNavigate = (path) => {
     navigate(path);
     setSidebarOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="min-h-screen bg-background flex">
       {/* Overlay pour mobile */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -82,24 +82,33 @@ export const DashboardLayout = () => {
         animate={{
           x: isDesktop ? 0 : (sidebarOpen ? 0 : '-100%'),
         }}
-        className="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-slate-200 shadow-lg z-50 lg:z-30"
+        className="fixed left-0 top-0 bottom-0 w-64 shadow-lg z-50 lg:z-30"
+        style={{
+          backgroundColor: 'var(--sidebar)',
+          borderRight: '1px solid var(--sidebar-border)',
+        }}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="h-16 flex items-center justify-between px-6 border-b border-slate-200">
+          <div className="h-16 flex items-center justify-between px-6" style={{ borderBottom: '1px solid var(--sidebar-border)' }}>
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--sidebar-primary)' }}>
                 <Car className="w-6 h-6 text-white" />
               </div>
-              <span className="font-display font-bold text-xl text-slate-900">
+              <span className="font-display font-bold text-xl" style={{ color: 'var(--sidebar-foreground)' }}>
                 Flotte Pro
               </span>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-2 rounded-lg hover:bg-slate-100"
+              className="lg:hidden p-2 rounded-lg transition-colors"
+              style={{ 
+                color: 'var(--sidebar-foreground)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--sidebar-accent)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
             >
-              <X className="w-5 h-5 text-slate-600" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -115,13 +124,27 @@ export const DashboardLayout = () => {
                   whileHover={{ scale: 1.02, x: 4 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigate(item.path)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? 'bg-blue-50 text-blue-600 shadow-sm'
-                      : 'text-slate-700 hover:bg-slate-50'
-                  }`}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200"
+                  style={{
+                    backgroundColor: isActive ? 'var(--sidebar-accent)' : 'transparent',
+                    color: isActive ? 'var(--sidebar-primary)' : 'var(--sidebar-foreground)',
+                    boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = 'var(--sidebar-accent)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }
+                  }}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-slate-500'}`} />
+                  <Icon 
+                    className="w-5 h-5" 
+                    style={{ color: isActive ? 'var(--sidebar-primary)' : 'var(--sidebar-foreground)' }}
+                  />
                   <span className="font-medium text-sm lg:text-base">{item.label}</span>
                 </motion.button>
               );
@@ -129,12 +152,17 @@ export const DashboardLayout = () => {
           </nav>
 
           {/* Logout */}
-          <div className="p-4 border-t border-slate-200">
+          <div className="p-4" style={{ borderTop: '1px solid var(--sidebar-border)' }}>
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-all duration-200"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200"
+              style={{ 
+                color: 'var(--destructive)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--sidebar-accent)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
             >
               <LogOut className="w-5 h-5" />
               <span className="font-medium text-sm lg:text-base">Déconnexion</span>
@@ -146,23 +174,23 @@ export const DashboardLayout = () => {
       {/* Main Content avec Navbar */}
       <div className="flex-1 lg:ml-64 flex flex-col">
         {/* Navbar - Statique et fixe */}
-        <nav className="fixed top-0 right-0 left-0 lg:left-64 h-16 bg-white border-b border-slate-200 shadow-sm z-20">
+        <nav className="fixed top-0 right-0 left-0 lg:left-64 h-16 bg-card border-b border-border shadow-sm z-20">
           <div className="h-full flex items-center justify-between px-4 lg:px-6">
             {/* Menu Hamburger pour mobile */}
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
             >
-              <Menu className="w-6 h-6 text-slate-600" />
+              <Menu className="w-6 h-6 text-foreground" />
             </button>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-md relative ml-2 lg:ml-0">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Rechercher..."
-                className="w-full pl-9 lg:pl-10 pr-4 py-2 text-sm lg:text-base rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-9 lg:pl-10 pr-4 py-2 text-sm lg:text-base rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
 
@@ -172,19 +200,19 @@ export const DashboardLayout = () => {
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="relative p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                className="relative p-2 rounded-lg hover:bg-muted transition-colors"
               >
-                <Bell className="w-4 h-4 lg:w-5 lg:h-5 text-slate-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                <Bell className="w-4 h-4 lg:w-5 lg:h-5 text-foreground" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full"></span>
               </motion.button>
 
               {/* User Profile */}
               <div className="flex items-center gap-2 lg:gap-3">
                 <div className="text-right hidden sm:block">
-                  <p className="text-xs lg:text-sm font-medium text-slate-900">Admin</p>
-                  <p className="text-xs text-slate-500 hidden lg:block">Administrateur</p>
+                  <p className="text-xs lg:text-sm font-medium text-foreground">Admin</p>
+                  <p className="text-xs text-muted-foreground hidden lg:block">Administrateur</p>
                 </div>
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary rounded-full flex items-center justify-center">
                   <span className="text-white font-semibold text-xs lg:text-sm">A</span>
                 </div>
               </div>

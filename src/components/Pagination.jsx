@@ -1,28 +1,20 @@
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  itemsPerPage: number;
-  totalItems: number;
-}
-
 export const Pagination = ({
   currentPage,
   totalPages,
   onPageChange,
   itemsPerPage,
   totalItems,
-}: PaginationProps) => {
+}) => {
   if (totalPages <= 1) return null;
 
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   const getPageNumbers = () => {
-    const pages: (number | string)[] = [];
+    const pages = [];
     const maxVisible = 5;
 
     if (totalPages <= maxVisible) {
@@ -88,7 +80,7 @@ export const Pagination = ({
               );
             }
 
-            const pageNum = page as number;
+            const pageNum = page;
             const isActive = pageNum === currentPage;
 
             return (

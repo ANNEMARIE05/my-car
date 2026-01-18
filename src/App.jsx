@@ -12,12 +12,12 @@ import { Clients } from './pages/Clients';
 import { Approvisionnements } from './pages/Approvisionnements';
 import { Parametres } from './pages/Parametres';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = ({ children }) => {
   const { estConnecte } = useApp();
   return estConnecte ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
-const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+const PublicRoute = ({ children }) => {
   const { estConnecte } = useApp();
   return !estConnecte ? <>{children}</> : <Navigate to="/dashboard" replace />;
 };
@@ -58,20 +58,20 @@ function App() {
           toastOptions={{
             duration: 3000,
             style: {
-              background: '#fff',
-              color: '#1e293b',
-              borderRadius: '12px',
+              background: 'var(--card)',
+              color: 'var(--foreground)',
+              borderRadius: 'var(--radius)',
               boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
             },
             success: {
               iconTheme: {
-                primary: '#3B82F6',
+                primary: 'var(--success)',
                 secondary: '#fff',
               },
             },
             error: {
               iconTheme: {
-                primary: '#EF4444',
+                primary: 'var(--destructive)',
                 secondary: '#fff',
               },
             },

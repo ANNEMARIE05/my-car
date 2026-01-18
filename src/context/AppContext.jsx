@@ -1,32 +1,12 @@
 import { createContext, useContext, useState } from 'react';
-import type { ReactNode } from 'react';
-import type { Vehicule, Piece, Client, Allocation, Facture, Approvisionnement } from '../types';
 
-interface AppContextType {
-  estConnecte: boolean;
-  connecter: (email: string, motDePasse: string) => void;
-  deconnecter: () => void;
-  vehicules: Vehicule[];
-  setVehicules: React.Dispatch<React.SetStateAction<Vehicule[]>>;
-  pieces: Piece[];
-  setPieces: React.Dispatch<React.SetStateAction<Piece[]>>;
-  clients: Client[];
-  setClients: React.Dispatch<React.SetStateAction<Client[]>>;
-  allocations: Allocation[];
-  setAllocations: React.Dispatch<React.SetStateAction<Allocation[]>>;
-  factures: Facture[];
-  setFactures: React.Dispatch<React.SetStateAction<Facture[]>>;
-  approvisionnements: Approvisionnement[];
-  setApprovisionnements: React.Dispatch<React.SetStateAction<Approvisionnement[]>>;
-}
+const AppContext = createContext(undefined);
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
-
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }) => {
   const [estConnecte, setEstConnecte] = useState(false);
   
   // Données de test initiales
-  const [vehicules, setVehicules] = useState<Vehicule[]>([
+  const [vehicules, setVehicules] = useState([
     {
       id: '1',
       marque: 'Tesla',
@@ -68,7 +48,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     },
   ]);
   
-  const [pieces, setPieces] = useState<Piece[]>([
+  const [pieces, setPieces] = useState([
     {
       id: '1',
       nom: 'Plaquette de frein avant',
@@ -96,7 +76,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     },
   ]);
   
-  const [clients, setClients] = useState<Client[]>([
+  const [clients, setClients] = useState([
     {
       id: '1',
       nom: 'Dupont',
@@ -121,11 +101,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     },
   ]);
   
-  const [allocations, setAllocations] = useState<Allocation[]>([]);
-  const [factures, setFactures] = useState<Facture[]>([]);
-  const [approvisionnements, setApprovisionnements] = useState<Approvisionnement[]>([]);
+  const [allocations, setAllocations] = useState([]);
+  const [factures, setFactures] = useState([]);
+  const [approvisionnements, setApprovisionnements] = useState([]);
 
-  const connecter = (email: string, motDePasse: string) => {
+  const connecter = (email, motDePasse) => {
     // Simulation de connexion
     if (email && motDePasse) {
       setEstConnecte(true);

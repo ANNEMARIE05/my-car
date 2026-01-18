@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export const ParticlesBackground = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -13,14 +13,7 @@ export const ParticlesBackground = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const particles: Array<{
-      x: number;
-      y: number;
-      radius: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-    }> = [];
+    const particles = [];
 
     const particleCount = 50;
 
